@@ -5,7 +5,7 @@ class MeetingMailer < Mailer
   def send_doodle(doodle, rec, language)
     set_language_if_valid language
     @doodle = doodle
-    sub = "[doodle #{doodle.id}]#{@doodle.title}"
+    sub = "[Umfrage #{doodle.id}]#{@doodle.title}"
     recipients rec
     subject sub
     body :doodle => doodle,
@@ -16,7 +16,7 @@ class MeetingMailer < Mailer
   def send_invalid_answer(doodle, rec, language)
     set_language_if_valid language
     @doodle = doodle
-    sub = "FAILED:[doodle #{doodle.id}]#{@doodle.title}"
+    sub = "FAILED:[Umfrage #{doodle.id}]#{@doodle.title}"
     recipients rec
     subject sub
     body :doodle => doodle
@@ -30,7 +30,7 @@ class MeetingMailer < Mailer
     @doodle.tab_options.zip(response.answers).each do |choice, selected|
       accepted << "[#{choice.strip}]" if selected
     end
-    sub = "SUCCESS:[doodle #{@doodle.id}]#{@doodle.title}"
+    sub = "SUCCESS:[Umfrage #{@doodle.id}]#{@doodle.title}"
     recipients rec
     subject sub
     body :doodle => @doodle, :response => response, :accepted => accepted.join(', '),
@@ -42,7 +42,7 @@ class MeetingMailer < Mailer
     @doodle = answer.meeting_doodle
     @name = answer.author.mail ? answer.author.name : answer.name
     set_language_if_valid @doodle.author.language
-    sub = "ANSWER:[doodle #{@doodle.id}]#{@doodle.title}"
+    sub = "ANSWER:[Umfrage #{@doodle.id}]#{@doodle.title}"
     recipients @doodle.author.mail
     subject sub
     body :doodle => @doodle, :name => @name,
