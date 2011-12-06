@@ -25,7 +25,7 @@ module MeetingMailHandlerPatch
 
   module MeetingMailHandlerInstanceMethods
     def dispatch_with_meetings
-      if m = email.subject.match(/\[Umfrage (\d+)\]/)
+      if m = email.subject.match(/\[[^\]]*Umfrage (\d+)\]/)
         doodle = MeetingDoodle.find(m[1].to_i, :include => [:project, :author, :responses])
         project = doodle.project
         sender_email = email.from.to_a.first.to_s.strip
